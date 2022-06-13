@@ -1,9 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import data from './data'
-import Article from './Article'
+import React, { useState, useEffect } from "react";
+import data from "./data";
+import Article from "./Article";
 
-function App() {
-  return <h2>dark mode starter</h2>
+function globalTheme() {
+  let theme = 'light-theme';
+  if (localStorage.getItem("theme")) {
+    return theme = localStorage.getItem("theme");
+  }
+  return theme
 }
 
-export default App
+function App() {
+  const [theme, setTheme] = useState(globalTheme());
+
+  let darkMode = () => {
+    if (theme === "light-theme") {
+      setTheme("dark-theme");
+    } else {
+      setTheme("light-theme");
+    }
+  };
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+    localStorage.setItem("theme", theme)
+  }, [theme])
+
+  return (
+    <main>
+      <nav>
+        <div className="nav-center">
+          <h1>overreacted</h1>
+          <button className="btn" onClick={() => darkMode()}>
+            toggle
+          </button>
+        </div>
+      </nav>
+      <section className="articles">
+        {data.map((item) => (
+          <Article key={item.id} {...item} />
+        ))}
+      </section>
+    </main>
+  );
+}
+
+export default App;

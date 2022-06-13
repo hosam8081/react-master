@@ -1,8 +1,17 @@
-import React from 'react'
-import { useGlobalContext } from './context'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { decrementPage, incrementPage } from "./newSlice";
 
 const Buttons = () => {
-  return <h2>button container</h2>
-}
+  const {page, numberPage} = useSelector(state => state.new)
+  const dispatch = useDispatch()
+  return (
+    <div className="btn-container">
+      <button onClick={() => dispatch(decrementPage())}>prev</button>
+      <p>{page} of {numberPage}</p>
+      <button onClick={() => dispatch(incrementPage())}>next</button>
+    </div>
+  );
+};
 
-export default Buttons
+export default Buttons;
