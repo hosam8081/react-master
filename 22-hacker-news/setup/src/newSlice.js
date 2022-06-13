@@ -51,7 +51,6 @@ export const newSlice = createSlice({
       state.loading = true;
     },
     [getFetchNews.fulfilled]: (state, action) => {
-      console.log(action.payload.hits);
       state.loading = false;
       state.numberPage = action.payload.nbPages
       state.news = action.payload.hits;
